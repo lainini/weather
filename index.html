@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/test.css">
+</head>
+
+<body>
+    <article class="minBox">
+        <section class="header">
+            <section class="left">
+            </section>
+            <section class="right">
+                <span>城市</span>
+                <input type="text" name="city" value="" placeholder="搜索城市" autocomplete="off">
+                <section class="cityBox">
+                    <p data-id="110100">北京市-北京</p>
+                </section>
+            </section>
+        </section>
+        <section class="body">
+            <section class="bodytop">
+            </section>
+            <section class="bodybottom">
+            </section>
+        </section>
+        <section class="bottom">
+            <h3>7日内天气情况</h3>
+            <section class="sevenbox">
+
+            </section>
+        </section>
+    </article>
+
+
+    <script>
+        function myAxios(confige) {
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                if (confige.params) {
+                    const urlparams = new URLSearchParams(confige.params).toString();
+                    confige.url += `?${urlparams}`
+                }
+                xhr.open(confige.method || "GET", confige.url);
+                xhr.addEventListener('loadend', () => {
+                    if (xhr.status >= 200 && xhr.status <= 300) {
+                        resolve(JSON.parse(xhr.response));
+                    } else {
+                        reject(new Error(xhr.statusText));
+                    };
+                });
+                if (confige.data) {
+                    const usdata = JSON.stringify(confige.data);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(usdata);
+                } else { xhr.send(); }
+            });
+        };
+
+    </script>
+    <script src="scripts/test.js"></script>
+</body>
+
+</html>

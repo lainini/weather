@@ -1,3 +1,5 @@
+const citycode = localStorage.getItem('citycode') || '110100';
+
 function run(city) {
     myAxios({
         url: 'https://hmajax.itheima.net/api/weather',
@@ -42,7 +44,7 @@ function run(city) {
 
     })
 };
-run('110100')
+run(citycode)
 
 // 城市搜索
 const input = document.querySelector('.header .right input');
@@ -82,5 +84,6 @@ function getcity() {
 citybox.addEventListener('click', function (e) {
     if (e.target.tagName === 'P') {
         run(e.target.dataset.id)
+        localStorage.setItem('citycode', e.target.dataset.id);
     }
 })
